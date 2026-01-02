@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM openjdk:8-jre-slim
+FROM openjdk:8-jdk-slim
 
 # Set environment variables using the recommended format
 ENV PROJECT_HOME=/opt/app
