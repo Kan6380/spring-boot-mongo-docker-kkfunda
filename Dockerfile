@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.5-openjdk-8-slim AS build
+FROM FROM eclipse-temurin:8-jre AS build
 
 # Set the working directory inside the container
 WORKDIR /app
