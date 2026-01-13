@@ -1,34 +1,33 @@
-# Stage 1: Build the application
-FROM eclipse-temurin:8-jre AS build
+# Stage 1: Build the application using Maven and OpenJDK 8
+FROM maven:3.8.5-openjdk-8-slim AS build
 
-# Set the working directory inside the container
+# Set working directory inside container
 WORKDIR /app
 
-# Copy the pom.xml file to the working directory
+# Copy pom.xml and download dependencies (go-offline)
 COPY pom.xml .
-
-# Download dependencies (without building the project yet)
 RUN mvn dependency:go-offline -B
 
-# Copy the entire project source code to the working directory
+# Copy source code
 COPY src ./src
 
-# Package the application (build the JAR file)
+# Build the application and package jar, skipping tests
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application
+# Stage 2: Run the application using Eclipse Temurin OpenJDK 8 JRE
 FROM eclipse-temurin:8-jre
 
-# Set environment variables using the recommended format
+# Set environment variable for app location
 ENV PROJECT_HOME=/opt/app
 
+# Set working directory
 WORKDIR $PROJECT_HOME
 
-# Copy the JAR file from the previous stage
+# Copy the built jar from the build stage
 COPY --from=build /app/target/spring-boot-mongo-1.0.jar $PROJECT_HOME/spring-boot-mongo.jar
 
-# Expose port 8080
+# Expose port 8080 for Spring Boot app
 EXPOSE 8080
 
-# Run the Spring Boot application
+# Run the application
 CMD ["java", "-jar", "./spring-boot-mongo.jar"]
