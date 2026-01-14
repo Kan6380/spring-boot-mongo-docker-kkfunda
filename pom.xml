@@ -22,11 +22,6 @@
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
-
-        <!-- SonarQube properties -->
-        <sonar.projectKey>spring-boot-mongo</sonar.projectKey>
-        <sonar.projectName>spring-boot-mongo</sonar.projectName>
-        <sonar.java.source>1.8</sonar.java.source>
     </properties>
 
     <dependencyManagement>
@@ -97,20 +92,10 @@
 
     <build>
         <plugins>
-
-            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- SonarQube Maven Plugin -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.10.0.2594</version>
-            </plugin>
-
         </plugins>
     </build>
 
